@@ -19,5 +19,5 @@ from .views import *
 app_name = 'recipy'
 
 urlpatterns = [
-    path('', IndexView.as_view(), name='index'),
+    path('', RecipeListView.as_view(), name='index'),
 ]

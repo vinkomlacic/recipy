@@ -1,5 +1,9 @@
-from django.views.generic import TemplateView
+from django.views.generic import ListView
+
+from recipy.models import Recipe
 
 
-class IndexView(TemplateView):
-    template_name = 'recipy/base.html'
+class RecipeListView(ListView):
+    template_name = 'recipy/recipe_list.html'
+    model = Recipe
+    context_object_name = 'recipes'

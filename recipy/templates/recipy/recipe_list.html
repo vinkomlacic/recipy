@@ -1,0 +1,38 @@
+{% extends 'recipy/base.html' %}
+{% load i18n %}
+
+{% block page_content %}
+    {% if not recipes.exists %}
+        <div class="text-center">
+            <p>{% trans 'No recipes yet. Add one by clicking the button below.' %}</p>
+
+            <button class="btn btn-primary">
+                {% trans 'Add recipe' %}
+            </button>
+        </div>
+    {% else %}
+        <div class="row">
+            {% for recipe in recipes %}
+                <div class="col-4 py-3">
+                    <div class="card shadow">
+                        <div class="card-header">
+                            <strong>{{ recipe.title }}</strong>
+                        </div>
+
+                        <div class="card-body">
+                            <p class="card-text">
+                                {{ recipe.description }}
+                            </p>
+                            <p class="card-text">
+                                <strong>{% trans 'Time' %}:</strong> {{ recipe.get_duration_display|default:_('Unknown') }}
+                            </p>
+
+                            <a href="#">{% trans 'See more' %}</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}
+
