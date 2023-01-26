@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Sum
 from django.utils.translation import gettext_lazy as _
 
 
@@ -21,7 +22,13 @@ class Recipe(models.Model):
     def get_duration_display(self) -> str:
         """Returns a human readable duration."""
         if self.duration_minutes is None:
-            return ''
+            if self.steps.exists():
+                all_step_duration_minutes = self.steps.aggregate(Sum(
+                    'duration_minutes'))['duration_minutes__sum']
+                return humanize_duration(all_step_duration_minutes)
+
+            else:
+                return ''
 
         return humanize_duration(self.duration_minutes)
 
