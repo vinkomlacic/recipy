@@ -21,9 +21,6 @@ class Recipe(models.Model):
     def get_duration_display(self) -> str:
         """Returns a human readable duration."""
         if self.duration_minutes is None:
-            # TODO: if duration is none try to collect it from the duration
-            #  of the steps. If that amounts to nothing, only then return
-            #  empty string.
             return ''
 
         return humanize_duration(self.duration_minutes)
@@ -52,7 +49,8 @@ class Step(models.Model):
     description = models.TextField(default='')
     duration_minutes = models.IntegerField(blank=True, null=True)
 
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE,
+                               related_name='steps')
 
     def __str__(self):
         return str(self.name)

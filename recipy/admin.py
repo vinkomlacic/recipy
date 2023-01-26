@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from recipy.models import Recipe, Ingredient, Step
+
+
+@admin.register(Recipe, Ingredient, Step)
+class DefaultAdmin(admin.ModelAdmin):
+    pass
