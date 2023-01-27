@@ -2,13 +2,21 @@
 {% load i18n %}
 
 {% block page_content %}
+    <div class="row justify-content-between px-3">
+        <h3>{% trans 'Recipes' %}</h3>
+
+        <a class="btn btn-primary" href="{% url 'recipy:recipe-create' %}">
+            {% trans 'Add recipe' %}
+        </a>
+    </div>
+
     {% if not recipes.exists %}
         <div class="text-center">
             <p>{% trans 'No recipes yet. Add one by clicking the button below.' %}</p>
 
-            <button class="btn btn-primary">
+            <a class="btn btn-primary" href="{% url 'recipy:recipe-create' %}">
                 {% trans 'Add recipe' %}
-            </button>
+            </a>
         </div>
     {% else %}
         <div class="row">
@@ -35,4 +43,3 @@
         </div>
     {% endif %}
 {% endblock %}
-

@@ -13,7 +13,7 @@ def humanize_duration(duration_minutes: int) -> str:
 
 class Recipe(models.Model):
     title = models.CharField(max_length=255)
-    description = models.TextField(default='')
+    description = models.TextField(default='', blank=True)
     duration_minutes = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
@@ -53,7 +53,7 @@ class Ingredient(models.Model):
 
 class Step(models.Model):
     name = models.CharField(max_length=255)
-    description = models.TextField(default='')
+    description = models.TextField(default='', blank=True)
     duration_minutes = models.IntegerField(blank=True, null=True)
 
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE,
