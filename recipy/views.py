@@ -21,7 +21,7 @@ class RecipeListView(ListView):
 class RecipeCreateView(CreateView):
     model = Recipe
     form_class = RecipeForm
-    template_name = 'recipy/form.html'
+    template_name = 'recipy/recipe_form.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

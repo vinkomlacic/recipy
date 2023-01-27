@@ -1,0 +1,19 @@
+{% extends 'recipy/form.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block form_content %}
+    {{ block.super }}
+
+    <h5>{% trans 'Steps' %}</h5>
+    {{ form.step_formset.management_form }}
+    {% for step_form in form.step_formset.forms %}
+        {% crispy step_form %}
+    {% endfor %}
+
+    <h5>{% trans 'Ingredients' %}</h5>
+    {{ form.ingredient_formset.management_form }}
+    {% for ingredient_form in form.ingredient_formset.forms %}
+        {% crispy ingredient_form %}
+    {% endfor %}
+{% endblock %}

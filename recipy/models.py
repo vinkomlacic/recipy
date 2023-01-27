@@ -25,6 +25,8 @@ class Recipe(models.Model):
             if self.steps.exists():
                 all_step_duration_minutes = self.steps.aggregate(Sum(
                     'duration_minutes'))['duration_minutes__sum']
+                if all_step_duration_minutes is None:
+                    return ''
                 return humanize_duration(all_step_duration_minutes)
 
             else:

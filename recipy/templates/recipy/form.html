@@ -12,7 +12,9 @@
 
                 <div class="card-body">
                     <form method="post">
-                        {% crispy form %}
+                        {% block form_content %}
+                            {% crispy form %}
+                        {% endblock %}
 
                         <input id="submit-btn" type="submit" class="d-none" />
                         <label for="submit-btn" class="btn btn-primary mt-3">
