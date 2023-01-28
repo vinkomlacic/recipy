@@ -24,7 +24,13 @@
                 <div class="col-4 py-3">
                     <div class="card shadow">
                         <div class="card-header">
-                            <strong>{{ recipe.title }}</strong>
+                            <div class="row justify-content-between">
+                                <strong>{{ recipe.title }}</strong>
+
+                                <a href="{% url 'recipy:recipe-update' recipe.pk %}" class="btn btn-sm btn-secondary">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                            </div>
                         </div>
 
                         <div class="card-body">

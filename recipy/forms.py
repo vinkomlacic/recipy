@@ -81,6 +81,10 @@ class StepForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_tag = False
 
+        # In the context of formset, this is necessary because we need the ID
+        # field.
+        self.helper.render_hidden_fields = True
+
         if inline:
             self.helper.layout = Layout(
                 Row(Column('name'), Column('duration_minutes')),
@@ -111,6 +115,10 @@ class IngredientForm(forms.ModelForm):
 
         self.helper = FormHelper()
         self.helper.form_tag = False
+
+        # In the context of formset, this is necessary because we need the ID
+        # field.
+        self.helper.render_hidden_fields = True
 
         if inline:
             self.helper.layout = Layout(
