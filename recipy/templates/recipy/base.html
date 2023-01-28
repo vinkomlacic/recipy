@@ -22,6 +22,9 @@
 
     <!-- Custom template styles -->
     <link href="{% static 'recipy/css/sb-admin-2.min.css' %}" rel="stylesheet">
+
+    <!-- Disappearing messages -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -58,6 +61,18 @@
 
             <!-- Custom scripts for all pages-->
             <script src="{% static 'recipy/js/sb-admin-2.min.js' %}"></script>
+
+            <!-- Disappearing messages -->
+            <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+            <!-- Show disappearing messages -->
+            <script>
+                {% if messages %}
+                    {% for message in messages %}
+                        toastr["{{ message.level_tag }}"](`{{ message }}`);
+                    {% endfor %}
+                {% endif %}
+            </script>
         {% endblock %}
     </div>
     <!-- End of Page Wrapper -->
