@@ -1,4 +1,5 @@
 {% extends 'recipy/base.html' %}
+{% load recipy_tags %}
 {% load i18n %}
 
 {% block page_content %}
@@ -21,15 +22,26 @@
     {% else %}
         <div class="row">
             {% for recipe in recipes %}
+                {% url 'recipy:recipe-delete' recipe.pk as delete_recipe_url %}
+                {% render_delete_confirmation_modal recipe delete_recipe_url %}
+
                 <div class="col-4 py-3">
                     <div class="card shadow">
                         <div class="card-header">
                             <div class="row justify-content-between">
-                                <strong>{{ recipe.title }}</strong>
+                                <div class="col">
+                                    <strong>{{ recipe.title }}</strong>
+                                </div>
 
-                                <a href="{% url 'recipy:recipe-update' recipe.pk %}" class="btn btn-sm btn-secondary">
-                                    <i class="fa fa-edit"></i>
-                                </a>
+                                <div class="col">
+                                    <div class="row justify-content-end" style="gap: .1em">
+                                        <a href="{% url 'recipy:recipe-update' recipe.pk %}" class="btn btn-sm btn-secondary">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+
+                                        {% show_delete_confirmation_modal_btn recipe %}
+                                    </div>
+                                </div>
                             </div>
                         </div>
 

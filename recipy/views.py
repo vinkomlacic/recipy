@@ -5,6 +5,7 @@ from django.views.generic import ListView, CreateView, RedirectView, UpdateView
 
 from recipy.forms import RecipeForm
 from recipy.models import Recipe
+from recipy.utils import DirectDeleteView
 
 
 class IndexView(RedirectView):
@@ -49,6 +50,14 @@ class RecipeUpdateView(UpdateView):
         context.update({'form_title': _('Update recipe')})
 
         return context
+
+    def get_success_url(self):
+        return reverse('recipy:recipes-list')
+
+
+class RecipeDeleteView(DirectDeleteView):
+    model = Recipe
+    pk_url_kwarg = 'pk_recipe'
 
     def get_success_url(self):
         return reverse('recipy:recipes-list')

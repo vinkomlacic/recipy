@@ -30,4 +30,8 @@ urlpatterns = [
         'recipes/<int:pk_recipe>/update',
         RecipeUpdateView.as_view(), name='recipe-update'
     ),
+    path(
+        'recipes/<int:pk_recipe>/delete',
+        RecipeDeleteView.as_view(), name='recipe-delete',
+    ),
 ]
