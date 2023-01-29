@@ -1,7 +1,7 @@
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column
 from django import forms
-from django.forms import inlineformset_factory, Textarea
+from django.forms import inlineformset_factory
 from django.utils.translation import gettext_lazy as _
 
 from recipy.models import Recipe, Step, Ingredient
