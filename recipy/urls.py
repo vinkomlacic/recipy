@@ -34,4 +34,8 @@ urlpatterns = [
         'recipes/<int:pk_recipe>/delete',
         RecipeDeleteView.as_view(), name='recipe-delete',
     ),
+    path(
+        'recipes/<int:pk_recipe>', RecipeDetailView.as_view(),
+        name='recipe-detail'
+    ),
 ]

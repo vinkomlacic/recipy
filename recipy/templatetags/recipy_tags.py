@@ -1,5 +1,6 @@
 from django import template
 from django.conf import settings
+from django.utils.translation import gettext_lazy as _
 
 from recipy.utils import get_id_for_model_instance
 
@@ -45,7 +46,7 @@ def render_modal(model_instance, **kwargs):
     action_prefix = kwargs.setdefault('action_prefix', '')
     kwargs.setdefault('modal_title', model_verbose_name)
     kwargs.setdefault('submit_btn_color', 'primary')
-    kwargs.setdefault('submit_btn_text', 'OK')
+    kwargs.setdefault('submit_btn_text', _('OK'))
     kwargs.setdefault('submit_btn_disabled', False)
 
     # Set required values
@@ -102,14 +103,15 @@ def show_modal_btn(model_instance, **kwargs):
 
 @register.inclusion_tag('recipy/modal.html')
 def render_delete_confirmation_modal(model_instance, form_action):
-    model_verbose_name = model_instance._meta.verbose_name
-    modal_title = f'Are you sure you want to delete this {model_verbose_name}?'
+    modal_title = \
+        _('Are you sure you want to delete this %(model_name)s?') % \
+        {'model_name': model_instance._meta.verbose_name}
 
     return render_modal(
         model_instance, form_action=form_action, action_prefix='confirm-delete',
         modal_title=modal_title,
-        modal_text='Deleting is a permanent action. Are you sure?',
-        submit_btn_color='danger', submit_btn_text='Delete'
+        modal_text=_('Deleting is a permanent action. Are you sure?'),
+        submit_btn_color='danger', submit_btn_text=_('Delete'),
     )
 
 

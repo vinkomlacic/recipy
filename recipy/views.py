@@ -1,7 +1,8 @@
 from django.contrib import messages
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import ListView, CreateView, RedirectView, UpdateView
+from django.views.generic import ListView, CreateView, RedirectView, UpdateView, \
+    DetailView
 
 from recipy.forms import RecipeForm
 from recipy.models import Recipe
@@ -61,3 +62,10 @@ class RecipeDeleteView(DirectDeleteView):
 
     def get_success_url(self):
         return reverse('recipy:recipes-list')
+
+
+class RecipeDetailView(DetailView):
+    model = Recipe
+    pk_url_kwarg = 'pk_recipe'
+    template_name = 'recipy/recipe_detail.html'
+    context_object_name = 'recipe'

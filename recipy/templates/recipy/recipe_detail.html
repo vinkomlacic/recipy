@@ -1,0 +1,64 @@
+{% extends 'recipy/base.html' %}
+{% load i18n %}
+
+{% block page_content %}
+    <div class="container bg-white p-3">
+        <div class="row">
+            <div class="col">
+                <h3>{{ recipe.title }}</h3>
+                <p>{{ recipe.description|default:_('No description') }}</p>
+            </div>
+        </div>
+
+        <hr/>
+
+        <div class="row">
+            <div class="col">
+                <h4>{% trans 'Ingredients' %}</h4>
+                {% if recipe.ingredients.exists %}
+                    <ul>
+                        {% for ingredient in recipe.ingredients.all %}
+                            <li>{{ ingredient.name }} - {{ ingredient.quantity }} {{ ingredient.get_measure_display|default:_('Piece') }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>{% trans 'No ingredients listed in this recipe.' %}</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <hr/>
+
+        <div class="row">
+            <div class="col">
+                <h4>{% trans 'Steps' %}</h4>
+                {% if recipe.steps.exists %}
+                    <ol>
+                        {% for step in recipe.steps.all %}
+                            <li>
+                                <strong>
+                                    {{ step.name }}:
+                                    {% if step.get_duration_display %}
+                                        ({{ step.get_duration_display }})
+                                    {% endif %}
+                                </strong>
+                                {{ step.description|default:'Empty step' }}
+                            </li>
+                        {% endfor %}
+                    </ol>
+                {% else %}
+                    <p>{% trans 'No steps listed in this recipe.' %}</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <a href="{% url 'recipy:recipes-list' %}" class="btn btn-link">
+                    <i class="fa fa-arrow-left"></i> {% trans 'Back' %}
+                </a>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

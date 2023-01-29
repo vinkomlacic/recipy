@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load crispy_forms_tags %}
 
 <div class="modal fade" id="{{ modal_id }}" tabindex="-1"
@@ -37,7 +38,7 @@
             <div class="modal-footer">
                 {% block modal_footer %}
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                        Close
+                        {% trans 'Close' %}
                     </button>
                     <button type="submit" class="btn btn-{{ submit_btn_color|default:'primary' }}" form="{{ modal_id }}-form"
                             {% if submit_btn_disabled %}disabled{% endif %}>

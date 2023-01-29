@@ -53,7 +53,7 @@
                                 <strong>{% trans 'Time' %}:</strong> {{ recipe.get_duration_display|default:_('Unknown') }}
                             </p>
 
-                            <a href="#">{% trans 'See more' %}</a>
+                            <a href="{% url 'recipy:recipe-detail' recipe.pk %}">{% trans 'See more' %}</a>
                         </div>
                     </div>
                 </div>
