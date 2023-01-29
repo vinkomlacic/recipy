@@ -1,0 +1,63 @@
+{% extends 'recipy/base.html' %}
+{% load recipy_tags %}
+{% load i18n %}
+
+{% block page_content %}
+    <div class="row justify-content-between px-3">
+        <h3>{% trans 'Recipes' %}</h3>
+
+        <a class="btn btn-primary" href="{% url 'recipy:recipe-create' %}">
+            {% trans 'Add recipe' %}
+        </a>
+    </div>
+
+    {% if not recipes.exists %}
+        <div class="text-center">
+            <p>{% trans 'No recipes yet. Add one by clicking the button below.' %}</p>
+
+            <a class="btn btn-primary" href="{% url 'recipy:recipe-create' %}">
+                {% trans 'Add recipe' %}
+            </a>
+        </div>
+    {% else %}
+        <div class="row">
+            {% for recipe in recipes %}
+                {% url 'recipy:recipe-delete' recipe.pk as delete_recipe_url %}
+                {% render_delete_confirmation_modal recipe delete_recipe_url %}
+
+                <div class="col-4 py-3">
+                    <div class="card shadow">
+                        <div class="card-header">
+                            <div class="row justify-content-between">
+                                <div class="col">
+                                    <strong>{{ recipe.title }}</strong>
+                                </div>
+
+                                <div class="col">
+                                    <div class="row justify-content-end" style="gap: .1em">
+                                        <a href="{% url 'recipy:recipe-update' recipe.pk %}" class="btn btn-sm btn-secondary">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+
+                                        {% show_delete_confirmation_modal_btn recipe %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <p class="card-text">
+                                {{ recipe.description }}
+                            </p>
+                            <p class="card-text">
+                                <strong>{% trans 'Time' %}:</strong> {{ recipe.get_duration_display|default:_('Unknown') }}
+                            </p>
+
+                            <a href="{% url 'recipy:recipe-detail' recipe.pk %}">{% trans 'See more' %}</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

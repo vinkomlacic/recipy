@@ -1,0 +1,28 @@
+{% extends 'recipy/base.html' %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+{% block page_content %}
+    <div class="row py-3">
+        <div class="col-10 offset-1">
+            <div class="card">
+                <div class="card-header">
+                    {{ form_title }}
+                </div>
+
+                <div class="card-body">
+                    <form method="post">
+                        {% block form_content %}
+                            {% crispy form %}
+                        {% endblock %}
+
+                        <input id="submit-btn" type="submit" class="d-none" />
+                        <label for="submit-btn" class="btn btn-primary mt-3">
+                            {{ form_submit_label|default:_('Save') }}
+                        </label>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

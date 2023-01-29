@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Sum
 from django.utils.translation import gettext_lazy as _
 
 
@@ -12,7 +13,7 @@ def humanize_duration(duration_minutes: int) -> str:
 
 class Recipe(models.Model):
     title = models.CharField(max_length=255)
-    description = models.TextField(default='')
+    description = models.TextField(default='', blank=True)
     duration_minutes = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
@@ -21,10 +22,15 @@ class Recipe(models.Model):
     def get_duration_display(self) -> str:
         """Returns a human readable duration."""
         if self.duration_minutes is None:
-            # TODO: if duration is none try to collect it from the duration
-            #  of the steps. If that amounts to nothing, only then return
-            #  empty string.
-            return ''
+            if self.steps.exists():
+                all_step_duration_minutes = self.steps.aggregate(Sum(
+                    'duration_minutes'))['duration_minutes__sum']
+                if all_step_duration_minutes is None:
+                    return ''
+                return humanize_duration(all_step_duration_minutes)
+
+            else:
+                return ''
 
         return humanize_duration(self.duration_minutes)
 
@@ -49,10 +55,11 @@ class Ingredient(models.Model):
 
 class Step(models.Model):
     name = models.CharField(max_length=255)
-    description = models.TextField(default='')
+    description = models.TextField(default='', blank=True)
     duration_minutes = models.IntegerField(blank=True, null=True)
 
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE,
+                               related_name='steps')
 
     def __str__(self):
         return str(self.name)

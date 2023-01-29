@@ -1,0 +1,51 @@
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+<div class="modal fade" id="{{ modal_id }}" tabindex="-1"
+     role="dialog" aria-labelledby="#{{ modal_id }}-label"
+     aria-hidden="true">
+    <div class="modal-dialog {{ extra_modal_classes }}" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                {% block modal_header %}
+                    <h5 class="modal-title" id="{{ modal_id }}-label">
+                        {{ modal_title }}
+                    </h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                {% endblock %}
+            </div>
+
+            <div class="modal-body">
+                {% block modal_body %}
+                    {% if form_action %}
+                        <form id="{{ modal_id }}-form" method="post" action="{{ form_action }}">
+                            {% if form %}
+                                {% crispy form %}
+                            {% else %}
+                                {% csrf_token %}
+                            {% endif %}
+                        </form>
+                    {% endif %}
+
+                    {{ modal_text }}
+                {% endblock %}
+            </div>
+
+            <div class="modal-footer">
+                {% block modal_footer %}
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        {% trans 'Close' %}
+                    </button>
+                    <button type="submit" class="btn btn-{{ submit_btn_color|default:'primary' }}" form="{{ modal_id }}-form"
+                            {% if submit_btn_disabled %}disabled{% endif %}>
+                        {{ submit_btn_text }}
+                    </button>
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
