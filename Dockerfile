@@ -25,7 +25,7 @@ RUN addgroup recipy --gid 2001
 RUN adduser recipy --disabled-password --gecos "Recipy" --home /home/recipy --gid 2001 --uid 2001
 
 # copy checklist source
-COPY src $PROJECT_DIR
+COPY . $PROJECT_DIR
 
 # give ownership to the default user
 RUN chown -R recipy:recipy $PROJECT_DIR
