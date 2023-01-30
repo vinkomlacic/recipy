@@ -33,10 +33,6 @@ RUN chown -R recipy:recipy $PROJECT_DIR
 # install the requirements
 RUN pip install --no-cache-dir --upgrade -r $PROJECT_DIR/requirements.txt
 
-# we store the credentials and repository url in the pip.conf
-COPY pip.conf /root/.pip/pip.conf
-RUN chmod 0600 /root/.pip/pip.conf
-
 # set the environment and run the container
 USER recipy
 WORKDIR $PROJECT_DIR
