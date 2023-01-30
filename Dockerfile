@@ -12,7 +12,7 @@ RUN apt-get update
 RUN apt-get install git -y
 RUN apt-get install gcc -y
 RUN apt-get install pip -y
-RUN pip install uwsgi
+RUN pip install gunicorn
 
 # SSH stuff
 #ADD docker/docker.key /root/.ssh/id_rsa
@@ -39,4 +39,5 @@ WORKDIR $PROJECT_DIR
 ENV PYTHONPATH=$PYTHONPATH:$PROJECT_DIR
 
 # Start the server
-CMD ["uwsgi", "--ini", "uwsgi.ini"]
+CMD ["gunicorn", "root.wsgi"]
+EXPOSE 8000
