@@ -4,7 +4,7 @@ services:
   django:
     build:
       context: ..
-      dockerfile: ../docker/production/Dockerfile
+      dockerfile: ./docker/production/Dockerfile
 
     image: recipy_production_django
     command: /start
