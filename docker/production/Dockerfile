@@ -5,9 +5,9 @@ FROM node:16-bullseye-slim as client-builder
 ARG APP_HOME=/app
 WORKDIR ${APP_HOME}
 
-COPY ../../package.json ${APP_HOME}
+COPY ./package.json ${APP_HOME}
 RUN npm install && npm cache clean --force
-COPY ../.. ${APP_HOME}
+COPY . ${APP_HOME}
 
 RUN npm run build
 
@@ -27,7 +27,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   libpq-dev
 
 # Requirements are installed here to ensure they will be cached.
-COPY ../../requirements .
+COPY ./requirements .
 
 # Create Python Dependency and Sub-Dependency Wheels.
 RUN pip wheel --wheel-dir /usr/src/app/wheels  \
@@ -80,7 +80,7 @@ RUN chmod +x /start
 
 
 # copy application code to WORKDIR
-COPY --chown=django:django ../.. ${APP_HOME}
+COPY --chown=django:django . ${APP_HOME}
 
 # make django owner of the WORKDIR directory as well.
 RUN chown django:django ${APP_HOME}
