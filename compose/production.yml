@@ -8,3 +8,5 @@ services:
 
     image: recipy_production_django
     command: /start
+    ports:
+      - '80:5000'
