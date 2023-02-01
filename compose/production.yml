@@ -2,6 +2,7 @@ version: '3'
 
 volumes:
   production_postgres_data: {}
+  production_traefik: {}
 
 services:
   django:
@@ -16,8 +17,6 @@ services:
     image: recipy_production_django
     container_name: recipy_production_django
     command: /start
-    ports:
-      - '80:5000'
 
   postgres:
     build:
@@ -30,3 +29,16 @@ services:
       - production_postgres_data:/var/lib/postgresql/data
     env_file:
       - ../.envs/.env  # NOTE: not part of the project, needs to be created
+
+  traefik:
+    build:
+      context: ..
+      dockerfile: ./compose/production/traefik/Dockerfile
+    image: recipy_production_traefik
+    depends_on:
+      - django
+    volumes:
+      - production_traefik:/etc/traefik/acme
+    ports:
+      - "0.0.0.0:80:80"
+      - "0.0.0.0:443:443"
