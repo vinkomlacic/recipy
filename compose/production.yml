@@ -7,7 +7,7 @@ services:
   django:
     build:
       context: ..
-      dockerfile: ../docker/production/django/Dockerfile
+      dockerfile: ./docker/production/django/Dockerfile
 
     depends_on:
       - postgres
@@ -22,7 +22,7 @@ services:
   postgres:
     build:
       context: ..
-      dockerfile: ../docker/production/postgres/Dockerfile
+      dockerfile: ./docker/production/postgres/Dockerfile
 
     image: recipy_production_postgres
     container_name: recipy_production_postgres
