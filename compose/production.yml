@@ -12,7 +12,7 @@ services:
     depends_on:
       - postgres
     env_file:
-      - ./envs/.env  # NOTE: not part of the project, needs to be created
+      - ../.envs/.env  # NOTE: not part of the project, needs to be created
     image: recipy_production_django
     container_name: recipy_production_django
     command: /start
@@ -22,11 +22,11 @@ services:
   postgres:
     build:
       context: ..
-      dockerfile: ./docker/production/postgres/Dockerfile
+      dockerfile: ../docker/production/postgres/Dockerfile
 
     image: recipy_production_postgres
     container_name: recipy_production_postgres
     volumes:
       - production_postgres_data:/var/lib/postgresql/data
     env_file:
-      - ./envs/.env  # NOTE: not part of the project, needs to be created
+      - ../.envs/.env  # NOTE: not part of the project, needs to be created
