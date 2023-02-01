@@ -12,10 +12,16 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 import environ
 from pathlib import Path
+from django.core.exceptions import ImproperlyConfigured
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+env_path = BASE_DIR / '.envs' / '.env'
+if not env_path.exists():
+    msg = f'.env file not found at {env_path}'
+    raise ImproperlyConfigured(msg)
 
 env = environ.Env()
 env.read_env(BASE_DIR / '.envs' / '.env')

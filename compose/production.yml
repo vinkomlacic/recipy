@@ -7,6 +7,7 @@ services:
       dockerfile: ./docker/production/Dockerfile
 
     image: recipy_production_django
+    container_name: recipy_production_django
     command: /start
     ports:
       - '80:5000'
