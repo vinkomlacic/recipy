@@ -1,13 +1,32 @@
 version: '3'
 
+volumes:
+  production_postgres_data: {}
+
 services:
   django:
     build:
       context: ..
-      dockerfile: ./docker/production/Dockerfile
+      dockerfile: ../docker/production/django/Dockerfile
 
+    depends_on:
+      - postgres
+    env_file:
+      - ./envs/.env  # NOTE: not part of the project, needs to be created
     image: recipy_production_django
     container_name: recipy_production_django
     command: /start
     ports:
       - '80:5000'
+
+  postgres:
+    build:
+      context: ..
+      dockerfile: ./docker/production/postgres/Dockerfile
+
+    image: recipy_production_postgres
+    container_name: recipy_production_postgres
+    volumes:
+      - production_postgres_data:/var/lib/postgresql/data
+    env_file:
+      - ./envs/.env  # NOTE: not part of the project, needs to be created
