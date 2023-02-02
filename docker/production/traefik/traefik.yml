@@ -29,7 +29,7 @@ certificatesResolvers:
 http:
   routers:
     web-secure-router:
-      rule: "Host(`ec2-35-180-131-187.eu-west-3.compute.amazonaws.com`)"
+      rule: "Host(`ec2-35-180-205-177.eu-west-3.compute.amazonaws.com/`)"
       entryPoints:
         - web-secure
       middlewares:
