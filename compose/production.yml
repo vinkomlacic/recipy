@@ -51,7 +51,8 @@ services:
     build:
       context: ..
       dockerfile: ./docker/production/nginx/Dockerfile
-    container_name: recipy_production_nginx_statis
+    image: recipy_production_nginx_static
+    container_name: recipy_production_nginx_static
     volumes:
       - production_static_files:/static
     restart: always
