@@ -38,6 +38,9 @@ http:
       tls:
         # https://docs.traefik.io/master/routing/routers/#certresolver
         certResolver: letsencrypt
+    static-server-router:
+      rule: "Path(`/static`)"
+      service: nginx_static
 
   middlewares:
     csrf:
@@ -51,6 +54,7 @@ http:
       loadBalancer:
         servers:
           - url: http://django:5000
+
     nginx_static:
       loadBalancer:
         servers:
