@@ -29,7 +29,7 @@ certificatesResolvers:
 http:
   routers:
     web-secure-router:
-      rule: "HostRegexp(`{whatever:*}eu-west-3.compute.amazonaws.com`)"
+      rule: "HostRegexp(`{subdomain:*}.compute.amazonaws.com`)"
       entryPoints:
         - web-secure
       middlewares:
