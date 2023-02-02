@@ -82,6 +82,10 @@ RUN chmod +x /start
 # copy application code to WORKDIR
 COPY --chown=django:django . ${APP_HOME}
 
+# Run collectstatic as root. Necessary because we're sharing volumes with other
+# containers
+RUN python ${APP_HOME}/manage.py collectstatic --noinput
+
 # make django owner of the WORKDIR directory as well.
 RUN chown django:django ${APP_HOME}
 
