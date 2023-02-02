@@ -28,6 +28,18 @@ certificatesResolvers:
 
 http:
   routers:
+    static-content-router:
+      rule: "Host(`ec2-13-38-90-178.eu-west-3.compute.amazonaws.com`) && PathPrefix(`/static/`)"
+      entryPoints:
+        - web-secure
+        - web
+      middlewares:
+        - csrf
+      service: django
+      tls:
+        # https://docs.traefik.io/master/routing/routers/#certresolver
+        certResolver: letsencrypt
+
     web-secure-router:
       rule: "Host(`ec2-13-38-90-178.eu-west-3.compute.amazonaws.com`)"
       entryPoints:
