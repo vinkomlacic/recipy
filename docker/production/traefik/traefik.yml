@@ -51,10 +51,13 @@ http:
       loadBalancer:
         servers:
           - url: http://django:5000
+    nginx:
+      loadBalancer:
+        servers:
+          - url: http://nginx:80
 
 providers:
   # https://docs.traefik.io/master/providers/file/
   file:
     filename: /etc/traefik/traefik.yml
     watch: true
-  docker: {}

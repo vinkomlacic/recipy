@@ -56,8 +56,3 @@ services:
     volumes:
       - production_static_files:/static
     restart: always
-    labels:
-      - "traefik.enable=true"
-      - "traefik.backend=nginx"
-      - "traefik.frontend.rule=PathPrefix:/static"
-      - "traefik.port=80"
