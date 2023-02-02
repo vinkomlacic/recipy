@@ -3,6 +3,7 @@ version: '3'
 volumes:
   production_postgres_data: {}
   production_traefik: {}
+  production_static_files: {}
 
 services:
   django:
@@ -16,6 +17,8 @@ services:
       - ../.envs/.env  # NOTE: not part of the project, needs to be created
     image: recipy_production_django
     container_name: recipy_production_django
+    volumes:
+      - production_static_files:/app/static
     command: /start
 
   postgres:
@@ -35,6 +38,7 @@ services:
       context: ..
       dockerfile: ./docker/production/traefik/Dockerfile
     image: recipy_production_traefik
+    container_name: recipy_production_traefik
     depends_on:
       - django
     volumes:
@@ -42,3 +46,17 @@ services:
     ports:
       - "0.0.0.0:80:80"
       - "0.0.0.0:443:443"
+
+  nginx:
+    build:
+      context: ..
+      dockerfile: ./docker/production/nginx/Dockerfile
+    container_name: recipy_production_nginx_statis
+    volumes:
+      - production_static_files:/static
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.backend=nginx"
+      - "traefik.frontend.rule=Host:xyz.co;PathPrefix:/static"
+      - "traefik.port=80"

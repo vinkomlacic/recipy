@@ -5,7 +5,7 @@ FROM node:16-bullseye-slim as client-builder
 ARG APP_HOME=/app
 WORKDIR ${APP_HOME}
 
-COPY ./package.json ${APP_HOME}
+COPY .docker/production/django/package.json ${APP_HOME}
 RUN npm install && npm cache clean --force
 COPY . ${APP_HOME}
 
