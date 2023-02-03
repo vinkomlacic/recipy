@@ -42,7 +42,7 @@ http:
         domains:
           - main: "vinkomlacic.com"
           - sans:
-              - "*.vinkomlacic.com"
+              - "recipy.vinkomlacic.com"
 
     web-secure-router:
       rule: "Host(`recipy.vinkomlacic.com`)"
@@ -57,7 +57,7 @@ http:
         domains:
           - main: "vinkomlacic.com"
           - sans:
-              - "*.vinkomlacic.com"
+              - "recipy.vinkomlacic.com"
 
     # NOTE: this needs to be the last router cause order matters
     website-router:
@@ -70,8 +70,6 @@ http:
         certResolver: letsencrypt
         domains:
           - main: "vinkomlacic.com"
-          - sans:
-              - "*.vinkomlacic.com"
 
   middlewares:
     csrf:
