@@ -36,9 +36,9 @@ http:
       middlewares:
         - csrf
       service: nginx
-      tls:
-        # https://docs.traefik.io/master/routing/routers/#certresolver
-        certResolver: letsencrypt
+#      tls:
+#        # https://docs.traefik.io/master/routing/routers/#certresolver
+#        certResolver: letsencrypt
 
     web-secure-router:
       rule: "Host(`recipy.vinkomlacic.com`)"
@@ -47,9 +47,9 @@ http:
       middlewares:
         - csrf
       service: django
-      tls:
-        # https://docs.traefik.io/master/routing/routers/#certresolver
-        certResolver: letsencrypt
+#      tls:
+#        # https://docs.traefik.io/master/routing/routers/#certresolver
+#        certResolver: letsencrypt
 
     # NOTE: this needs to be the last router cause order matters
     website-router:
