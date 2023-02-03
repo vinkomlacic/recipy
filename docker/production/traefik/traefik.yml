@@ -29,7 +29,7 @@ certificatesResolvers:
 http:
   routers:
     static-content-router:
-      rule: "Host(`ec2-13-38-90-178.eu-west-3.compute.amazonaws.com`) && PathPrefix(`/static/`)"
+      rule: "Host(`recipy.vinkomlacic.com`) && PathPrefix(`/static/`)"
       entryPoints:
         - web-secure
         - web
@@ -41,7 +41,7 @@ http:
         certResolver: letsencrypt
 
     web-secure-router:
-      rule: "Host(`ec2-13-38-90-178.eu-west-3.compute.amazonaws.com`)"
+      rule: "Host(`recipy.vinkomlacic.com`)"
       entryPoints:
         - web-secure
       middlewares:
