@@ -29,7 +29,7 @@ certificatesResolvers:
 http:
   routers:
     website-router:
-      rule: "Host(`vinkomlacic.com`)"
+      rule: "Host(`vinkomlacic.com`) && !PathPrefix(`/static/`)"
       entryPoints:
         - web-secure
       service: website
