@@ -84,15 +84,15 @@ http:
     django:
       loadBalancer:
         servers:
-          - url: http://django:5000
+          - url: https://django:5000
     nginx:
       loadBalancer:
         servers:
-          - url: http://nginx:80
+          - url: https://nginx:80
     website:
       loadBalancer:
         servers:
-          - url: http://website:80
+          - url: https://website:80
 
 
 providers:
