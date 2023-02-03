@@ -28,6 +28,15 @@ certificatesResolvers:
 
 http:
   routers:
+    website-router:
+      rule: "Host(`vinkomlacic.com`)"
+      entryPoints:
+        - web-secure
+      service: website
+      tls:
+        # https://docs.traefik.io/master/routing/routers/#certresolver
+        certResolver: letsencrypt
+
     static-content-router:
       rule: "Host(`recipy.vinkomlacic.com`) && PathPrefix(`/static/`)"
       entryPoints:
@@ -67,6 +76,11 @@ http:
       loadBalancer:
         servers:
           - url: http://nginx:80
+    website:
+      loadBalancer:
+        servers:
+          - url: http://nginx:80
+
 
 providers:
   # https://docs.traefik.io/master/providers/file/
