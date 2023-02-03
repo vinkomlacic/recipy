@@ -47,9 +47,9 @@ http:
       middlewares:
         - csrf
       service: django
-#      tls:
-#        # https://docs.traefik.io/master/routing/routers/#certresolver
-#        certResolver: letsencrypt
+      tls:
+        # https://docs.traefik.io/master/routing/routers/#certresolver
+        certResolver: letsencrypt
 
     # NOTE: this needs to be the last router cause order matters
     website-router:
@@ -57,9 +57,9 @@ http:
       entryPoints:
         - web-secure
       service: website
-      tls:
-        # https://docs.traefik.io/master/routing/routers/#certresolver
-        certResolver: letsencrypt
+#      tls:
+#        # https://docs.traefik.io/master/routing/routers/#certresolver
+#        certResolver: letsencrypt
 
   middlewares:
     csrf:
