@@ -49,7 +49,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'accounts',
     'recipy',
+
     'crispy_forms',
     'django_extensions',
 ]
@@ -144,3 +147,9 @@ PRODUCT_NAME = 'Recipy'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 CRISPY_FAIL_SILENTLY = not DEBUG
+
+# Set up authentication
+AUTH_USER_MODEL = 'accounts.RecipyUser'
+LOGIN_URL = 'accounts:login'
+LOGIN_REDIRECT_URL = 'accounts:login'
+LOGOUT_REDIRECT_URL = 'accounts:login'
