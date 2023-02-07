@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.contrib.auth.views import LogoutView
 from django.urls import path
 
 from .views import *
@@ -21,4 +22,5 @@ app_name = 'accounts'
 
 urlpatterns = [
     path('login', RecipyLoginView.as_view(), name='login'),
+    path('logout', LogoutView.as_view(), name='logout')
 ]
