@@ -1,6 +1,8 @@
 # [next] - unreleased
+- vinkomlacic (REC-6): add login and logout flows
 
 # [0.1.3] - 2023-02-05
+- vinkomlacic (DEP-3, hotfix): take dotenv path from environment
 
 # [0.1.2] - 2023-02-05
 - vinkomlacic (REC-9): Remove all configuration to the deployer project
