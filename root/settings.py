@@ -153,3 +153,10 @@ AUTH_USER_MODEL = 'accounts.RecipyUser'
 LOGIN_URL = 'accounts:login'
 LOGIN_REDIRECT_URL = 'accounts:login'
 LOGOUT_REDIRECT_URL = 'accounts:login'
+
+# Demo user settings
+DEMO_USER = {
+    'username': 'recipy',
+    'password': 'recipy123',
+    'recipe_limit': 5,
+}

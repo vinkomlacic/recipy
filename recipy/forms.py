@@ -11,7 +11,7 @@ class RecipeForm(forms.ModelForm):
 
     class Meta:
         model = Recipe
-        fields = '__all__'
+        fields = ('title', 'description', 'duration_minutes')
         labels = {
             'title': _('Title'),
             'description': _('Description'),
@@ -23,7 +23,10 @@ class RecipeForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user')
         super().__init__(*args, **kwargs)
+
+        self.instance.user = user
 
         self.helper = FormHelper()
         self.helper.form_tag = False
@@ -31,11 +34,13 @@ class RecipeForm(forms.ModelForm):
         # Initialize formsets
         self.step_formset = RecipeStepFormSet(
             data=kwargs.get('data'), files=kwargs.get('files'),
-            instance=self.instance, form_kwargs={'inline': True}
+            instance=self.instance,
+            form_kwargs={'inline': True, 'formset_form': True}
         )
         self.ingredient_formset = RecipeIngredientFormSet(
             data=kwargs.get('data'), files=kwargs.get('files'),
-            instance=self.instance, form_kwargs={'inline': True},
+            instance=self.instance,
+            form_kwargs={'inline': True, 'formset_form': True}
         )
 
     def is_valid(self):
@@ -76,14 +81,19 @@ class StepForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         inline = kwargs.pop('inline', False)
+        formset_form = kwargs.pop('formset_form', False)
         super().__init__(*args, **kwargs)
 
         self.helper = FormHelper()
         self.helper.form_tag = False
 
-        # In the context of formset, this is necessary because we need the ID
-        # field.
-        self.helper.render_hidden_fields = True
+        if formset_form:
+            # In the context of formset, this is necessary because we need the
+            # ID field.
+            self.helper.render_hidden_fields = True
+
+            # In a formset, this cannot be enforced anyway
+            self.fields['name'].required = False
 
         if inline:
             self.helper.layout = Layout(
@@ -111,14 +121,19 @@ class IngredientForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         inline = kwargs.pop('inline', False)
+        formset_form = kwargs.pop('formset_form', False)
         super().__init__(*args, **kwargs)
 
         self.helper = FormHelper()
         self.helper.form_tag = False
 
-        # In the context of formset, this is necessary because we need the ID
-        # field.
-        self.helper.render_hidden_fields = True
+        if formset_form:
+            # In the context of formset, this is necessary because we need the
+            # ID field.
+            self.helper.render_hidden_fields = True
+
+            # In a formset, this cannot be enforced anyway
+            self.fields['name'].required = False
 
         if inline:
             self.helper.layout = Layout(
