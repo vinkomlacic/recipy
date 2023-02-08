@@ -2,7 +2,7 @@ from django import template
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
-from recipy.utils import get_id_for_model_instance
+from recipy.utils.templates import get_id_for_model_instance
 
 register = template.Library()
 

@@ -158,5 +158,5 @@ LOGOUT_REDIRECT_URL = 'accounts:login'
 DEMO_USER = {
     'username': 'recipy',
     'password': 'recipy123',
-    'recipe_limit': 10,
+    'recipe_limit': 5,
 }

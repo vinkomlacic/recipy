@@ -7,7 +7,7 @@ from django.views.generic import (
 
 from recipy.forms import RecipeForm
 from recipy.models import Recipe
-from recipy.utils import DirectDeleteView
+from recipy.utils.views import DirectDeleteView, DemoUserMixin
 
 
 class IndexView(LoginRequiredMixin, RedirectView):
@@ -22,10 +22,11 @@ class RecipeListView(LoginRequiredMixin, ListView):
     template_name = 'recipy/recipe_list.html'
 
 
-class RecipeCreateView(LoginRequiredMixin, CreateView):
+class RecipeCreateView(LoginRequiredMixin, DemoUserMixin, CreateView):
     model = Recipe
     form_class = RecipeForm
     template_name = 'recipy/recipe_form.html'
+    demo_user_permissions = ('can_add_recipe',)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -36,6 +37,11 @@ class RecipeCreateView(LoginRequiredMixin, CreateView):
         })
 
         return context
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
 
     def get_success_url(self):
         return reverse('recipy:recipes-list')
@@ -52,6 +58,11 @@ class RecipeUpdateView(LoginRequiredMixin, UpdateView):
         context.update({'form_title': _('Update recipe')})
 
         return context
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
 
     def get_success_url(self):
         return reverse('recipy:recipes-list')
