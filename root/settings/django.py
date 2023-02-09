@@ -16,7 +16,7 @@ from django.core.exceptions import ImproperlyConfigured
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 env_path = os.environ.get('DJANGO_ENV_PATH') or BASE_DIR / '.envs/.env'
 if not env_path.exists():
     msg = f'.env file not found at {env_path}'
@@ -143,22 +143,8 @@ STATICFILES_FINDERS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-PRODUCT_NAME = 'Recipy'
-
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
-CRISPY_FAIL_SILENTLY = not DEBUG
-
 # Set up authentication
 AUTH_USER_MODEL = 'accounts.RecipyUser'
 LOGIN_URL = 'accounts:login'
 LOGIN_REDIRECT_URL = 'accounts:login'
 LOGOUT_REDIRECT_URL = 'accounts:login'
-
-# Demo user settings
-DEMO_USER = {
-    'username': 'recipy',
-    'password': 'recipy123',
-    'recipe_limit': 5,
-}
-
-WEBSITE_URL = 'https://vinkomlacic.com'
