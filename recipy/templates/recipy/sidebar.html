@@ -7,12 +7,12 @@
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center"
-       href="{% url 'recipy:index' %}">
+       href="{% url 'recipy:recipes-list' %}">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
         <div class="sidebar-brand-text mx-3">
-            {% setting 'PRODUCT_NAME' %}
+            {% setting 'RECIPY_PRODUCT_NAME' %}
         </div>
     </a>
 
@@ -31,7 +31,7 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Link to Website -->
-    {% setting 'WEBSITE_URL' as website_url %}
+    {% setting 'RECIPY_WEBSITE_URL' as website_url %}
     <li class="nav-item">
         <a class="nav-link" href="{{ website_url }}" target="_blank">
             <i class="fas fa-fw fa-globe"></i>
