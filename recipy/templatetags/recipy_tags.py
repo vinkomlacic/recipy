@@ -122,3 +122,12 @@ def show_delete_confirmation_modal_btn(model_instance, btn_text=''):
         btn_text=btn_text, btn_color='danger',
         btn_fa_icon_class='fa-trash'
     )
+
+
+@register.simple_tag
+def element_id(element_name):
+    elements = {
+        'logout-modal': 'logout-modal',
+    }
+
+    return elements[element_name]
