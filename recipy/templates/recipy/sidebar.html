@@ -1,3 +1,5 @@
+{% load i18n %}
+{% load recipy_filters %}
 {% load recipy_tags %}
 
 <!-- Sidebar -->
@@ -18,10 +20,32 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
-        <a class="nav-link" href="{% url 'recipy:index' %}">
+    {% url 'recipy:recipes-list' as dashboard_url %}
+    <li class="nav-item {% if dashboard_url|is_current_url:request %}active{% endif %}">
+        <a class="nav-link" href="{{ dashboard_url }}">
             <i class="fas fa-fw fa-utensils"></i>
-            <span>Recipes</span></a>
+            <span>{% trans 'Recipes' %}</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <!-- Nav Item - Link to Website -->
+    {% setting 'WEBSITE_URL' as website_url %}
+    <li class="nav-item">
+        <a class="nav-link" href="{{ website_url }}" target="_blank">
+            <i class="fas fa-fw fa-globe"></i>
+            vinkomlacic.com
+            <i class="fas fa-fw fa-external-link-alt"></i>
+        </a>
+    </li>
+
+    <!-- Nav Item - Logout -->
+    <li class="nav-item">
+        <a class="nav-link" href="#" data-toggle="modal" data-target="#{% element_id 'logout-modal' %}">
+            <i class="fas fa-sign-out-alt fa-fw"></i>
+            Logout
+        </a>
     </li>
 
     <!-- Divider -->

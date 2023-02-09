@@ -160,3 +160,5 @@ DEMO_USER = {
     'password': 'recipy123',
     'recipe_limit': 5,
 }
+
+WEBSITE_URL = 'https://vinkomlacic.com'
