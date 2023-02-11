@@ -88,9 +88,7 @@ class DemoUserMixin:
                 raise ImproperlyConfigured(msg)
 
     def can_add_recipe(self):
-        user = self.request.user
-        if user.username == settings.DEMO_USER['username'] and \
-                user.recipes.count() >= settings.DEMO_USER['recipe_limit']:
+        if self._is_demo_user() and self._is_over_recipes_limit():
             wmsg = f'Demo user can have no more than 10 recipes. Also, '
             wmsg += f'keep in mind that the demo user data is deleted '
             wmsg += f'on daily basis. '
@@ -98,3 +96,11 @@ class DemoUserMixin:
             return False
 
         return True
+
+    def _is_demo_user(self):
+        user = self.request.user
+        return user.username == settings.RECIPY_DEMO_USER['username']
+
+    def _is_over_recipes_limit(self):
+        user = self.request.user
+        return user.recipes.count() >= settings.RECIPY_DEMO_USER['recipe_limit']
