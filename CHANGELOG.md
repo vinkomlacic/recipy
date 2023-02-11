@@ -1,4 +1,6 @@
 # [next] - unreleased
+
+# [1.0.0] - 2023-02-11
 - vinkomlacic (REC-6): add login and logout flows
 - vinkomlacic (REC-7): add support for demo user
 - vinkomlacic (REC-3): add website link and logout link to the sidebar
