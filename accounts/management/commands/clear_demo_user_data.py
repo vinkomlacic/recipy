@@ -8,7 +8,7 @@ class Command(BaseCommand):
     help = 'Clears all data for the demo user.'
 
     def handle(self, *args, **options):
-        username = settings.DEMO_USER['username']
+        username = settings.RECIPY_DEMO_USER['username']
 
         demo_user_qs = RecipyUser.objects.filter(username=username)
         if not demo_user_qs.exists():

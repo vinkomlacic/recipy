@@ -7,8 +7,8 @@ class Command(BaseCommand):
     help = 'Creates demo user if one does not exist.'
 
     def handle(self, *args, **options):
-        username = settings.DEMO_USER['username']
-        password = settings.DEMO_USER['password']
+        username = settings.RECIPY_DEMO_USER['username']
+        password = settings.RECIPY_DEMO_USER['password']
 
         if RecipyUser.objects.filter(username=username).exists():
             self.stdout.write('Demo user already exists.')
