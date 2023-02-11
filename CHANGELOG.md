@@ -3,6 +3,7 @@
 - vinkomlacic (REC-7): add support for demo user
 - vinkomlacic (REC-3): add website link and logout link to the sidebar
 - vinkomlacic (REC-2): restructure settings
+- vinkomlacic (REC-12, bugfix): fix issue with CSRF verification
 
 # [0.1.3] - 2023-02-05
 - vinkomlacic (DEP-3, hotfix): take dotenv path from environment
