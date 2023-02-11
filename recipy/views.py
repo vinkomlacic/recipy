@@ -1,30 +1,32 @@
-from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import ListView, CreateView, RedirectView, UpdateView, \
-    DetailView
+from django.views.generic import (
+    ListView, CreateView, RedirectView, UpdateView, DetailView
+)
 
 from recipy.forms import RecipeForm
 from recipy.models import Recipe
-from recipy.utils import DirectDeleteView
+from recipy.utils.views import DirectDeleteView, DemoUserMixin
 
 
-class IndexView(RedirectView):
+class IndexView(LoginRequiredMixin, RedirectView):
 
     def get_redirect_url(self, *args, **kwargs):
         return reverse('recipy:recipes-list')
 
 
-class RecipeListView(ListView):
+class RecipeListView(LoginRequiredMixin, ListView):
     model = Recipe
     context_object_name = 'recipes'
     template_name = 'recipy/recipe_list.html'
 
 
-class RecipeCreateView(CreateView):
+class RecipeCreateView(LoginRequiredMixin, DemoUserMixin, CreateView):
     model = Recipe
     form_class = RecipeForm
     template_name = 'recipy/recipe_form.html'
+    demo_user_permissions = ('can_add_recipe',)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -36,11 +38,16 @@ class RecipeCreateView(CreateView):
 
         return context
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
+
     def get_success_url(self):
         return reverse('recipy:recipes-list')
 
 
-class RecipeUpdateView(UpdateView):
+class RecipeUpdateView(LoginRequiredMixin, UpdateView):
     model = Recipe
     form_class = RecipeForm
     template_name = 'recipy/recipe_form.html'
@@ -52,11 +59,16 @@ class RecipeUpdateView(UpdateView):
 
         return context
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
+
     def get_success_url(self):
         return reverse('recipy:recipes-list')
 
 
-class RecipeDeleteView(DirectDeleteView):
+class RecipeDeleteView(LoginRequiredMixin, DirectDeleteView):
     model = Recipe
     pk_url_kwarg = 'pk_recipe'
 
@@ -64,7 +76,7 @@ class RecipeDeleteView(DirectDeleteView):
         return reverse('recipy:recipes-list')
 
 
-class RecipeDetailView(DetailView):
+class RecipeDetailView(LoginRequiredMixin, DetailView):
     model = Recipe
     pk_url_kwarg = 'pk_recipe'
     template_name = 'recipy/recipe_detail.html'

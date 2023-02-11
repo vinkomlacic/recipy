@@ -2,7 +2,7 @@ from django import template
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
-from recipy.utils import get_id_for_model_instance
+from recipy.utils.templates import get_id_for_model_instance
 
 register = template.Library()
 
@@ -122,3 +122,12 @@ def show_delete_confirmation_modal_btn(model_instance, btn_text=''):
         btn_text=btn_text, btn_color='danger',
         btn_fa_icon_class='fa-trash'
     )
+
+
+@register.simple_tag
+def element_id(element_name):
+    elements = {
+        'logout-modal': 'logout-modal',
+    }
+
+    return elements[element_name]

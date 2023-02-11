@@ -4,12 +4,14 @@
 
 {% block form_content %}
     {{ block.super }}
+    <hr/>
 
     <h5>{% trans 'Steps' %}</h5>
     {{ form.step_formset.management_form }}
     {% for step_form in form.step_formset.forms %}
         {% crispy step_form %}
     {% endfor %}
+    <hr/>
 
     <h5>{% trans 'Ingredients' %}</h5>
     {{ form.ingredient_formset.management_form }}

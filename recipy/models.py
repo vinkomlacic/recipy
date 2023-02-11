@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.db.models import Sum
 from django.utils.translation import gettext_lazy as _
@@ -15,6 +16,10 @@ class Recipe(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField(default='', blank=True)
     duration_minutes = models.IntegerField(blank=True, null=True)
+
+    user = models.ForeignKey(
+        get_user_model(), on_delete=models.CASCADE, related_name='recipes'
+    )
 
     def __str__(self):
         return str(self.title)
