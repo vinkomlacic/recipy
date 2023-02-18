@@ -1,5 +1,9 @@
+import abc
+from enum import Enum
+
 from django.conf import settings
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import ImproperlyConfigured
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
@@ -105,3 +109,65 @@ class DemoUserMixin:
     def _is_over_recipes_limit(self):
         user = self.request.user
         return user.recipes.count() >= settings.RECIPY_DEMO_USER['recipe_limit']
+
+
+class RecipeAccessControlMixin(UserPassesTestMixin):
+    """
+    Implementation of access control policies for recipes.
+
+    This mixin should be applied in combination with SingleObjectMixin.
+
+    It implements the following policies:
+        - All users need to be authenticated
+        - All users are allowed to read public recipes
+        - Only the users that are authors of the recipes are allowed to
+            modify them
+    """
+
+    class Action(Enum):
+        READ = 'read'
+        MODIFY = 'modify'  # write or delete
+
+    action: Action = None
+
+    def get_action(self):
+        if self.action is None:
+            msg = f'"action" attribute needs to be set on the View when using '
+            msg += f'{RecipeAccessControlMixin.__name__}. '
+            raise ImproperlyConfigured(msg)
+
+        return self.action
+
+    def setup(self, *args, **kwargs):
+        super().setup(*args, **kwargs)
+        # Loading the object attribute here because the DetailView,
+        # DeletionMixin, and UpdateView load it too late (in the dispatch
+        # method).
+        self.object = self.get_object()
+
+    # This needs to be overridden because above the self.object is loaded early
+    # and this is to cache the result so that it's not done twice.
+    def get_object(self):
+        if hasattr(self, 'object'):
+            return self.object
+
+        return super().get_object()
+
+    def test_func(self):
+        user = self.request.user
+        if not user.is_authenticated:
+            return False
+
+        recipe = self.object
+        action = self.get_action()
+        if action == RecipeAccessControlMixin.Action.READ:
+            if recipe.user != user and not recipe.is_public:
+                return False
+        elif action == RecipeAccessControlMixin.Action.MODIFY:
+            if recipe.user != user:
+                return False
+        else:
+            msg = f'"{action}" is not a supported action. '
+            raise NotImplementedError(msg)
+
+        return True
