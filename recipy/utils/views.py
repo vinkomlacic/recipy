@@ -1,5 +1,8 @@
+import abc
+
 from django.conf import settings
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import ImproperlyConfigured
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
@@ -105,3 +108,41 @@ class DemoUserMixin:
     def _is_over_recipes_limit(self):
         user = self.request.user
         return user.recipes.count() >= settings.RECIPY_DEMO_USER['recipe_limit']
+
+
+class RecipeAccessControlMixin(UserPassesTestMixin):
+    """
+    Implementation of access control policies for recipes.
+
+    This mixin should be applied in combination with SingleObjectMixin.
+
+    It implements the following policies:
+        - All users need to be authenticated
+        - If the user is not the owner of the recipe, the recipe must be public
+    """
+
+    def setup(self, *args, **kwargs):
+        super().setup(*args, **kwargs)
+        # Loading the object attribute here because the DetailView,
+        # DeletionMixin, and UpdateView load it too late (in the dispatch
+        # method).
+        self.object = self.get_object()
+
+    # This needs to be overridden because above the self.object is loaded early
+    # and this is to cache the result so that it's not done twice.
+    def get_object(self):
+        if hasattr(self, 'object'):
+            return self.object
+
+        return super().get_object()
+
+    def test_func(self):
+        user = self.request.user
+        if not user.is_authenticated:
+            return False
+
+        recipe = self.object
+        if recipe.user != user and not recipe.is_public:
+            return False
+
+        return True

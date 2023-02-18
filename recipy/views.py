@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import (
@@ -7,7 +8,9 @@ from django.views.generic import (
 
 from recipy.forms import RecipeForm
 from recipy.models import Recipe
-from recipy.utils.views import DirectDeleteView, DemoUserMixin
+from recipy.utils.views import (
+    DirectDeleteView, DemoUserMixin, RecipeAccessControlMixin
+)
 
 
 class IndexView(LoginRequiredMixin, RedirectView):
@@ -20,6 +23,11 @@ class RecipeListView(LoginRequiredMixin, ListView):
     model = Recipe
     context_object_name = 'recipes'
     template_name = 'recipy/recipe_list.html'
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        qs = qs.filter(Q(user=self.request.user) | Q(is_public=True))
+        return qs
 
 
 class RecipeCreateView(LoginRequiredMixin, DemoUserMixin, CreateView):
@@ -47,7 +55,7 @@ class RecipeCreateView(LoginRequiredMixin, DemoUserMixin, CreateView):
         return reverse('recipy:recipes-list')
 
 
-class RecipeUpdateView(LoginRequiredMixin, UpdateView):
+class RecipeUpdateView(RecipeAccessControlMixin, UpdateView):
     model = Recipe
     form_class = RecipeForm
     template_name = 'recipy/recipe_form.html'
@@ -68,7 +76,7 @@ class RecipeUpdateView(LoginRequiredMixin, UpdateView):
         return reverse('recipy:recipes-list')
 
 
-class RecipeDeleteView(LoginRequiredMixin, DirectDeleteView):
+class RecipeDeleteView(RecipeAccessControlMixin, DirectDeleteView):
     model = Recipe
     pk_url_kwarg = 'pk_recipe'
 
@@ -76,7 +84,7 @@ class RecipeDeleteView(LoginRequiredMixin, DirectDeleteView):
         return reverse('recipy:recipes-list')
 
 
-class RecipeDetailView(LoginRequiredMixin, DetailView):
+class RecipeDetailView(RecipeAccessControlMixin, DetailView):
     model = Recipe
     pk_url_kwarg = 'pk_recipe'
     template_name = 'recipy/recipe_detail.html'
