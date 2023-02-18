@@ -1,8 +1,9 @@
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Row, Column
 from django import forms
 from django.forms import inlineformset_factory
 from django.utils.translation import gettext_lazy as _
+
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Row, Column
 
 from recipy.models import Recipe, Step, Ingredient
 
@@ -103,7 +104,7 @@ class StepForm(forms.ModelForm):
 
 
 RecipeStepFormSet = inlineformset_factory(
-    Recipe, Step, form=StepForm, extra=1, can_delete=False,
+    Recipe, Step, form=StepForm, extra=0, can_delete=False,
 )
 
 
@@ -142,5 +143,5 @@ class IngredientForm(forms.ModelForm):
 
 
 RecipeIngredientFormSet = inlineformset_factory(
-    Recipe, Ingredient, form=IngredientForm, extra=1, can_delete=False
+    Recipe, Ingredient, form=IngredientForm, extra=0, can_delete=False
 )

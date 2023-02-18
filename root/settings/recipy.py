@@ -4,7 +4,7 @@ RECIPY_PRODUCT_NAME = 'Recipy'
 RECIPY_DEMO_USER = {
     'username': 'recipy',
     'password': 'recipy123',
-    'recipe_limit': 5,
+    'recipe_limit': 10,
 }
 
 RECIPY_WEBSITE_URL = 'https://vinkomlacic.com'

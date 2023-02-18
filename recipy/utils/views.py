@@ -89,8 +89,9 @@ class DemoUserMixin:
 
     def can_add_recipe(self):
         if self._is_demo_user() and self._is_over_recipes_limit():
-            wmsg = f'Demo user can have no more than 10 recipes. Also, '
-            wmsg += f'keep in mind that the demo user data is deleted '
+            recipe_limit = settings.RECIPY_DEMO_USER['recipe_limit']
+            wmsg = f'Demo user can have no more than {recipe_limit} recipes. '
+            wmsg += f'Also, keep in mind that the demo user data is deleted '
             wmsg += f'on daily basis. '
             messages.warning(self.request, wmsg)
             return False
