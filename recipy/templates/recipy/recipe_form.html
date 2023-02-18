@@ -1,4 +1,5 @@
 {% extends 'recipy/form.html' %}
+{% load recipy_tags %}
 {% load i18n %}
 {% load crispy_forms_tags %}
 
@@ -7,15 +8,19 @@
     <hr/>
 
     <h5>{% trans 'Steps' %}</h5>
-    {{ form.step_formset.management_form }}
-    {% for step_form in form.step_formset.forms %}
-        {% crispy step_form %}
-    {% endfor %}
+    {% with formset=form.step_formset model=recipe.steps.model %}
+        {% show_formset formset model add_more_btn_text=_('Add step') is_dynamic_formset=True  %}
+    {% endwith %}
     <hr/>
 
     <h5>{% trans 'Ingredients' %}</h5>
-    {{ form.ingredient_formset.management_form }}
-    {% for ingredient_form in form.ingredient_formset.forms %}
-        {% crispy ingredient_form %}
-    {% endfor %}
+    {% with formset=form.ingredient_formset model=recipe.ingredients.model %}
+        {% show_formset formset model add_more_btn_text=_('Add ingredient') is_dynamic_formset=True %}
+    {% endwith %}
+{% endblock %}
+
+{% block after_form_content %}
+    {{ super.block }}
+    {% render_formset_empty_form form.step_formset recipe.steps.model %}
+    {% render_formset_empty_form form.ingredient_formset recipe.ingredients.model %}
 {% endblock %}

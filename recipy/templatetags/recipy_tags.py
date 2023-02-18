@@ -131,3 +131,22 @@ def element_id(element_name):
     }
 
     return elements[element_name]
+
+
+@register.inclusion_tag('recipy/formset.html')
+def show_formset(formset, model, add_more_btn_text=None,
+                 is_dynamic_formset=False):
+    return {
+        'formset_id': get_id_for_model_instance(model),
+        'formset': formset,
+        'add_more_btn_text': add_more_btn_text,
+        'is_dynamic_formset': is_dynamic_formset,
+    }
+
+
+@register.inclusion_tag('recipy/formset_empty_form.html')
+def render_formset_empty_form(formset, model):
+    return {
+        'formset_id': get_id_for_model_instance(model),
+        'formset': formset,
+    }

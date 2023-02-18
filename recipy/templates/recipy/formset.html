@@ -1,0 +1,23 @@
+{% load crispy_forms_tags %}
+
+
+<div id="{{ formset_id }}">
+    {{ formset.management_form }}
+    {% for form in formset %}
+        {% crispy form %}
+    {% endfor %}
+</div>
+
+
+{% if is_dynamic_formset %}
+    <div class="row justify-content-center">
+        <!-- When clicked, it adds a new form to the formset -->
+        <button class="formset-add-more-btn btn btn-link" type="button"
+                data-formset="#{{ formset_id }}"
+                data-formset-prefix="{{ formset.prefix }}"
+                data-empty-form="#{{ formset_id }}-empty-form">
+            <i class="fa fa-plus"></i>
+            {{ add_more_btn_text|default:_('Add more') }}
+        </button>
+    </div>
+{% endif %}

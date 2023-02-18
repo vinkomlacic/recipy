@@ -21,6 +21,8 @@
                             {{ form_submit_label|default:_('Save') }}
                         </label>
                     </form>
+
+                    {% block after_form_content %}{% endblock %}
                 </div>
             </div>
         </div>
