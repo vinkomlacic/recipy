@@ -33,7 +33,7 @@ class RecipeListView(LoginRequiredMixin, ListView):
         public_recipes = self.object_list.filter(is_public=True).exclude(
             user=self.request.user
         )
-        user_recipes = self.object_list.filter(is_public=False)
+        user_recipes = self.object_list.filter(user=self.request.user)
 
         return super().get_context_data(
             *args, public_recipes=public_recipes, user_recipes=user_recipes,
@@ -71,6 +71,7 @@ class RecipeUpdateView(RecipeAccessControlMixin, UpdateView):
     form_class = RecipeForm
     template_name = 'recipy/recipe_form.html'
     pk_url_kwarg = 'pk_recipe'
+    action = RecipeAccessControlMixin.Action.MODIFY
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -90,6 +91,7 @@ class RecipeUpdateView(RecipeAccessControlMixin, UpdateView):
 class RecipeDeleteView(RecipeAccessControlMixin, DirectDeleteView):
     model = Recipe
     pk_url_kwarg = 'pk_recipe'
+    action = RecipeAccessControlMixin.Action.MODIFY
 
     def get_success_url(self):
         return reverse('recipy:recipes-list')
@@ -100,3 +102,4 @@ class RecipeDetailView(RecipeAccessControlMixin, DetailView):
     pk_url_kwarg = 'pk_recipe'
     template_name = 'recipy/recipe_detail.html'
     context_object_name = 'recipe'
+    action = RecipeAccessControlMixin.Action.READ

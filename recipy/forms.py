@@ -12,15 +12,23 @@ class RecipeForm(forms.ModelForm):
 
     class Meta:
         model = Recipe
-        fields = ('title', 'description', 'duration_minutes')
+        fields = ('title', 'description', 'duration_minutes', 'is_public')
+
         labels = {
             'title': _('Title'),
             'description': _('Description'),
             'duration_minutes': _('Duration (in minutes)'),
+            'is_public': _('Make public'),
+        }
+
+        help_texts = {
+            'is_public': _('Public recipes can be seen by everyone. Other '
+                           'users will not be able to modify or delete any of '
+                           'your recipes. '),
         }
 
         widgets = {
-            'description': forms.Textarea(attrs={'rows': 4})
+            'description': forms.Textarea(attrs={'rows': 4}),
         }
 
     def __init__(self, *args, **kwargs):

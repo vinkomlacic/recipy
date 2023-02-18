@@ -15,6 +15,8 @@
         </div>
     </div>
 
+    <hr>
+
     <div class="row">
         <div class="col">
             <h5>{% trans 'Your recipes' %}</h5>
@@ -57,9 +59,7 @@
                     </div>
 
                     <div class="card-body">
-                        <p class="card-text">
-                            {{ recipe.description }}
-                        </p>
+                        <p class="card-text">{{ recipe.description }}</p>
                         <p class="card-text">
                             <strong>{% trans 'Time' %}:</strong> {{ recipe.get_duration_display|default:_('Unknown') }}
                         </p>
@@ -71,6 +71,8 @@
         {% endfor %}
     </div>
 
+    <hr>
+
     <div class="row">
         <div class="col">
             {% if public_recipes.exists %}
@@ -81,41 +83,19 @@
 
     <div class="row">
         {% for recipe in public_recipes %}
-{#              FIXME: delete the delete button. #}
-            {% url 'recipy:recipe-delete' recipe.pk as delete_recipe_url %}
-            {% render_delete_confirmation_modal recipe delete_recipe_url %}
-
             <div class="col-4 py-3">
                 <div class="card shadow">
                     <div class="card-header">
-                        <div class="row justify-content-between">
-                            <div class="col">
-                                <strong>{{ recipe.title }}</strong>
-                            </div>
-
-                            <div class="col">
-                                <div class="row justify-content-end" style="gap: .1em">
-{#                                      FIXME: remove this #}
-                                    <a href="{% url 'recipy:recipe-update' recipe.pk %}" class="btn btn-sm btn-secondary">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-
-{#                                      FIXME: remove this #}
-                                    {% show_delete_confirmation_modal_btn recipe %}
-                                </div>
-                            </div>
-                        </div>
+                        <strong>{{ recipe.title }}</strong>
                     </div>
 
                     <div class="card-body">
-                        <p class="card-text">
-                            {{ recipe.description }}
-                        </p>
+                        <p class="card-text">{{ recipe.description }}</p>
                         <p class="card-text">
                             <strong>{% trans 'Time' %}:</strong> {{ recipe.get_duration_display|default:_('Unknown') }}
                         </p>
                         <p class="card-text">
-                            <strong>{% trans 'Created by' %}</strong> {{ recipe.user }}
+                            <strong>{% trans 'Author' %}:</strong> {{ recipe.user }}
                         </p>
 
                         <a href="{% url 'recipy:recipe-detail' recipe.pk %}">{% trans 'See more' %}</a>

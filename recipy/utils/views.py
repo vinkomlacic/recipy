@@ -1,4 +1,5 @@
 import abc
+from enum import Enum
 
 from django.conf import settings
 from django.contrib import messages
@@ -118,8 +119,24 @@ class RecipeAccessControlMixin(UserPassesTestMixin):
 
     It implements the following policies:
         - All users need to be authenticated
-        - If the user is not the owner of the recipe, the recipe must be public
+        - All users are allowed to read public recipes
+        - Only the users that are authors of the recipes are allowed to
+            modify them
     """
+
+    class Action(Enum):
+        READ = 'read'
+        MODIFY = 'modify'  # write or delete
+
+    action: Action = None
+
+    def get_action(self):
+        if self.action is None:
+            msg = f'"action" attribute needs to be set on the View when using '
+            msg += f'{RecipeAccessControlMixin.__name__}. '
+            raise ImproperlyConfigured(msg)
+
+        return self.action
 
     def setup(self, *args, **kwargs):
         super().setup(*args, **kwargs)
@@ -142,7 +159,15 @@ class RecipeAccessControlMixin(UserPassesTestMixin):
             return False
 
         recipe = self.object
-        if recipe.user != user and not recipe.is_public:
-            return False
+        action = self.get_action()
+        if action == RecipeAccessControlMixin.Action.READ:
+            if recipe.user != user and not recipe.is_public:
+                return False
+        elif action == RecipeAccessControlMixin.Action.MODIFY:
+            if recipe.user != user:
+                return False
+        else:
+            msg = f'"{action}" is not a supported action. '
+            raise NotImplementedError(msg)
 
         return True
