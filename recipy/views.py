@@ -29,6 +29,17 @@ class RecipeListView(LoginRequiredMixin, ListView):
         qs = qs.filter(Q(user=self.request.user) | Q(is_public=True))
         return qs
 
+    def get_context_data(self, *args, **kwargs):
+        public_recipes = self.object_list.filter(is_public=True).exclude(
+            user=self.request.user
+        )
+        user_recipes = self.object_list.filter(is_public=False)
+
+        return super().get_context_data(
+            *args, public_recipes=public_recipes, user_recipes=user_recipes,
+            **kwargs
+        )
+
 
 class RecipeCreateView(LoginRequiredMixin, DemoUserMixin, CreateView):
     model = Recipe
