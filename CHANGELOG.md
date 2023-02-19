@@ -1,4 +1,6 @@
 # [next] - unreleased
+
+# [1.1.0] - 2023-02-19
 - vinkomlacic (REC-3): support adding more than 3 steps and ingredients to the 
   recipe
 - vinkomlacic (REC-15): public recipes
