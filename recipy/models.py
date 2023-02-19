@@ -17,8 +17,9 @@ class Recipe(models.Model):
     description = models.TextField(default='', blank=True)
     duration_minutes = models.IntegerField(blank=True, null=True)
 
-    is_public = models.BooleanField(default=False)
+    image = models.ImageField(default='defaults/recipe.jpg')
 
+    is_public = models.BooleanField(default=False)
     user = models.ForeignKey(
         get_user_model(), on_delete=models.CASCADE, related_name='recipes'
     )
