@@ -1,0 +1,7 @@
+{% load crispy_forms_tags %}
+
+<!-- Empty form code. Note that the empty form needs to be rendered -->
+<!-- outside the <form> tag so that it doesn't get submitted. -->
+<div id="{{ formset_id }}-empty-form" class="d-none">
+    {% crispy formset.empty_form %}
+</div>

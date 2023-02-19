@@ -1,8 +1,9 @@
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Row, Column
 from django import forms
 from django.forms import inlineformset_factory
 from django.utils.translation import gettext_lazy as _
+
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Row, Column
 
 from recipy.models import Recipe, Step, Ingredient
 
@@ -11,15 +12,25 @@ class RecipeForm(forms.ModelForm):
 
     class Meta:
         model = Recipe
-        fields = ('title', 'description', 'duration_minutes')
+        fields = ('title', 'description', 'duration_minutes', 'is_public',
+                  'image')
+
         labels = {
             'title': _('Title'),
             'description': _('Description'),
             'duration_minutes': _('Duration (in minutes)'),
+            'is_public': _('Make public'),
+            'image': _('Add image of your recipe'),
+        }
+
+        help_texts = {
+            'is_public': _('Public recipes can be seen by everyone. Other '
+                           'users will not be able to modify or delete any of '
+                           'your recipes. '),
         }
 
         widgets = {
-            'description': forms.Textarea(attrs={'rows': 4})
+            'description': forms.Textarea(attrs={'rows': 4}),
         }
 
     def __init__(self, *args, **kwargs):
@@ -103,7 +114,7 @@ class StepForm(forms.ModelForm):
 
 
 RecipeStepFormSet = inlineformset_factory(
-    Recipe, Step, form=StepForm, extra=1, can_delete=False,
+    Recipe, Step, form=StepForm, extra=0, can_delete=False,
 )
 
 
@@ -142,5 +153,5 @@ class IngredientForm(forms.ModelForm):
 
 
 RecipeIngredientFormSet = inlineformset_factory(
-    Recipe, Ingredient, form=IngredientForm, extra=1, can_delete=False
+    Recipe, Ingredient, form=IngredientForm, extra=0, can_delete=False
 )

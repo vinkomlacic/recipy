@@ -1,5 +1,11 @@
 # [next] - unreleased
 
+# [1.1.0] - 2023-02-19
+- vinkomlacic (REC-3): support adding more than 3 steps and ingredients to the 
+  recipe
+- vinkomlacic (REC-15): public recipes
+- vinkomlacic (REC-5): support adding images to the recipes
+
 # [1.0.0] - 2023-02-11
 - vinkomlacic (REC-6): add login and logout flows
 - vinkomlacic (REC-7): add support for demo user
