@@ -3,6 +3,9 @@ django-crispy-forms
 django-extensions
 django-environ
 
+# Required for django.models.ImageField
+Pillow
+
 # Testing utilities
 model_bakery
 faker

@@ -12,13 +12,15 @@ class RecipeForm(forms.ModelForm):
 
     class Meta:
         model = Recipe
-        fields = ('title', 'description', 'duration_minutes', 'is_public')
+        fields = ('title', 'description', 'duration_minutes', 'is_public',
+                  'image')
 
         labels = {
             'title': _('Title'),
             'description': _('Description'),
             'duration_minutes': _('Duration (in minutes)'),
             'is_public': _('Make public'),
+            'image': _('Add image of your recipe'),
         }
 
         help_texts = {
