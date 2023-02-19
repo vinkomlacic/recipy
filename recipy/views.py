@@ -53,6 +53,7 @@ class RecipeCreateView(LoginRequiredMixin, DemoUserMixin, CreateView):
         context.update({
             'form_title': _('Create recipe'),
             'form_submit_label': _('Create'),
+            'form_has_file_fields': True,  # Recipe has image field
         })
 
         return context
@@ -75,7 +76,10 @@ class RecipeUpdateView(RecipeAccessControlMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.update({'form_title': _('Update recipe')})
+        context.update({
+            'form_title': _('Update recipe'),
+            'form_has_file_fields': True,  # Recipe has image field
+        })
 
         return context
 

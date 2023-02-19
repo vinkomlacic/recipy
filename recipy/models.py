@@ -17,7 +17,8 @@ class Recipe(models.Model):
     description = models.TextField(default='', blank=True)
     duration_minutes = models.IntegerField(blank=True, null=True)
 
-    image = models.ImageField(default='defaults/recipe.jpg')
+    image = models.ImageField(upload_to='uploads/',
+                              default='defaults/recipe.jpg')
 
     is_public = models.BooleanField(default=False)
     user = models.ForeignKey(
