@@ -1,7 +1,10 @@
 Django~=4.1.5
-django-crispy-forms
 django-extensions
 django-environ
+
+# Form formatting out of the box
+django-crispy-forms
+crispy-bootstrap4
 
 # Required for django.models.ImageField
 Pillow
