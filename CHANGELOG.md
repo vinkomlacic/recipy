@@ -1,5 +1,8 @@
 # [next] - unreleased
 
+# [1.1.1] - 2023-02-20
+- vinkomlacic (REC-16): fix issues with new version of django-crispy-forms
+
 # [1.1.0] - 2023-02-19
 - vinkomlacic (REC-3): support adding more than 3 steps and ingredients to the 
   recipe

@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     'recipy',
 
     'crispy_forms',
+    'crispy_bootstrap4',
+
     'django_extensions',
 ]
 
