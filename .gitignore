@@ -132,4 +132,4 @@ dmypy.json
 .idea
 
 # Images uploaded by the users
-/media/uploads
+media

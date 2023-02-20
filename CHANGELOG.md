@@ -1,5 +1,8 @@
 # [next] - unreleased
 
+# [1.1.2] - 2023-02-20
+- vinkomlacic (REC-16): fix issues with Django default image URL
+
 # [1.1.1] - 2023-02-20
 - vinkomlacic (REC-16): fix issues with new version of django-crispy-forms
 
