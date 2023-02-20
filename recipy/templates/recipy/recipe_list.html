@@ -58,7 +58,7 @@
                         </div>
                     </div>
 
-                    <img class="card-img-top" src="{{ recipe.image.url }}"
+                    <img class="card-img-top" src="{% recipe_image_url recipe %}"
                          alt="{% blocktranslate with recipe_title=recipe.title %}Recipe: {{ recipe_title }}{% endblocktranslate %}">
 
                     <div class="card-body">
@@ -92,7 +92,7 @@
                         <strong>{{ recipe.title }}</strong>
                     </div>
 
-                    <img class="card-img-top" src="{{ recipe.image.url }}"
+                    <img class="card-img-top" src="{% recipe_image_url recipe %}"
                         alt="{% blocktranslate with recipe_title=recipe.title %}Public recipe: {{ recipe_title }}{% endblocktranslate %}">
 
                     <div class="card-body">
