@@ -1,33 +1,61 @@
-# [next] - unreleased
+# Changelog
 
-# [1.1.2] - 2023-02-20
-- vinkomlacic (REC-16): fix issues with Django default image URL
+All notable changes to this project will be documented in this file.
 
-# [1.1.1] - 2023-02-20
-- vinkomlacic (REC-16): fix issues with new version of django-crispy-forms
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-# [1.1.0] - 2023-02-19
-- vinkomlacic (REC-3): support adding more than 3 steps and ingredients to the 
-  recipe
-- vinkomlacic (REC-15): public recipes
-- vinkomlacic (REC-5): support adding images to the recipes
 
-# [1.0.0] - 2023-02-11
-- vinkomlacic (REC-6): add login and logout flows
-- vinkomlacic (REC-7): add support for demo user
-- vinkomlacic (REC-3): add website link and logout link to the sidebar
-- vinkomlacic (REC-2): restructure settings
-- vinkomlacic (REC-12, bugfix): fix issue with CSRF verification
+## [Unreleased]
 
-# [0.1.3] - 2023-02-05
-- vinkomlacic (DEP-3, hotfix): take dotenv path from environment
+## [1.1.2] - 2023-02-20
 
-# [0.1.2] - 2023-02-05
-- vinkomlacic (REC-9): Remove all configuration to the deployer project
+### Fixed
 
-# [0.1.1] - 2023-01-30
-- vinkomlacic (REC-9): Add missing configuration
+ - Issues with Django default image URL
 
-# [0.1.0] - 2023-01-30
-- vinkomlacic (REC-1): Add MVP code supporting the full range of CRUDL 
-  operations on recipes
+## [1.1.1] - 2023-02-20
+
+### Fixed
+ - Issues with new version of django-crispy-forms
+
+## [1.1.0] - 2023-02-19
+
+### Added
+ - Support for adding more than 3 steps and ingredients to the recipe
+ - Public recipes
+ - Recipes can have images now
+
+## [1.0.0] - 2023-02-11
+
+### Added
+ - Login and logout flows
+ - Support for demo user
+ - Link to the website
+ - Logout link in the sidebar
+
+### Changed
+ - Settings restructured
+
+### Fixed
+ - Issue with CSRF verification that didn't allow form submission in production
+
+## [0.1.3] - 2023-02-05 
+
+### Fixed
+ - Take dotenv path from environment
+
+## [0.1.2] - 2023-02-05
+
+### Fixed
+ - Move all configuration to the deployer project
+
+## [0.1.1] - 2023-01-30
+
+### Fixed
+ - Add missing configuration
+
+## [0.1.0] - 2023-01-30
+
+### Added
+ - MVP supporting the full range of CRUDL operations on recipes
