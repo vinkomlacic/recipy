@@ -8,8 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- More measure types in the recipe form
+
 ### Changed
  - Cleaned up the changelog
+ - Quantity field in the recipe form is no longer optional
 
 ## [1.1.2] - 2023-02-20
 
