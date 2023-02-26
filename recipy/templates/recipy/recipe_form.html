@@ -8,16 +8,17 @@
     {{ block.super }}
     <hr/>
 
-    <h5>{% trans 'Steps' %}</h5>
-    {% with formset=form.step_formset model=form.instance.steps.model %}
-        {% show_formset formset model add_more_btn_text=_('Add step') is_dynamic_formset=True  %}
-    {% endwith %}
-    <hr/>
-
     <h5>{% trans 'Ingredients' %}</h5>
     {% with formset=form.ingredient_formset model=form.instance.ingredients.model %}
         {% show_formset formset model add_more_btn_text=_('Add ingredient') is_dynamic_formset=True %}
     {% endwith %}
+    <hr/>
+
+    <h5>{% trans 'Steps' %}</h5>
+    {% with formset=form.step_formset model=form.instance.steps.model %}
+        {% show_formset formset model add_more_btn_text=_('Add step') is_dynamic_formset=True  %}
+    {% endwith %}
+
 {% endblock %}
 
 {% block after_form_content %}

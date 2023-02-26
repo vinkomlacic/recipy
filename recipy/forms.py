@@ -43,12 +43,12 @@ class RecipeForm(forms.ModelForm):
         self.helper.form_tag = False
 
         # Initialize formsets
-        self.step_formset = RecipeStepFormSet(
+        self.ingredient_formset = RecipeIngredientFormSet(
             data=kwargs.get('data'), files=kwargs.get('files'),
             instance=self.instance,
             form_kwargs={'inline': True, 'formset_form': True}
         )
-        self.ingredient_formset = RecipeIngredientFormSet(
+        self.step_formset = RecipeStepFormSet(
             data=kwargs.get('data'), files=kwargs.get('files'),
             instance=self.instance,
             form_kwargs={'inline': True, 'formset_form': True}

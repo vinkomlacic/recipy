@@ -48,9 +48,13 @@ class Ingredient(models.Model):
     class Measure(models.TextChoices):
         KG = 'KG', _('Kilogram')
         LITER = 'LITER', _('Liter')
+        TABLESPOON = 'TABLESPOON', _('Tablespoon')
+        TEASPOON = 'TEASPOON', _('Teaspoon')
+        PIECE = 'PIECE', _('Piece')
+        TO_TASTE = 'TO_TASTE', _('To taste')
 
     name = models.CharField(max_length=255)
-    quantity = models.FloatField()
+    quantity = models.FloatField(blank=True, null=True)
     measure = models.CharField(max_length=255, choices=Measure.choices,
                                blank=True, null=True)
 
