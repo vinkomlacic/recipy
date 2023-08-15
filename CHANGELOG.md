@@ -8,10 +8,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.1] - 2023-08-15
+
+### Changed
+ - Static files follow a new architecture. Updated settings
+
 ## [1.2.0] - 2023-02-26
 
 ### Added
-- More measure types in the recipe form
+ - More measure types in the recipe form
 
 ### Changed
  - Cleaned up the changelog
@@ -20,7 +25,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.1.2] - 2023-02-20
 
 ### Fixed
-
  - Issues with Django default image URL
 
 ## [1.1.1] - 2023-02-20
